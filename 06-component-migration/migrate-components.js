@@ -12,9 +12,21 @@ for (let templatePath of templatePaths) {
   // read the file content
   let template = fs.readFileSync(templatePath, 'utf8');
 
-  // TODO write your implementation here
+  let root = recast.parse(template);
 
-  let newTemplate = /* ... */ template;
+  recast.traverse(root, {
+    ElementNode(node) {
+      if(node.tag !== 'MenuItem') return;
+      node.tag = 'NewMenuItem';
+      let captionAttr = node.attributes.find(it => it.name === '@caption');
+      if(captionAttr) {
+        node.children = [captionAttr.value]
+      }
+      node.attributes = node.attributes.filter(it => it.name !== '@caption');
+    }
+  })
+
+  let newTemplate = recast.print(root);
 
   // if necessary, write the changes back to the original file
   if (newTemplate !== template) {

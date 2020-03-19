@@ -45,7 +45,11 @@ module.exports = function(defaults) {
   class StripTestSelectorsTransform {
     transform(root) {
       this.syntax.traverse(root, {
-        // TODO write your implementation here
+        AttrNode(node) {
+          if (node.type === 'AttrNode' && node.name.startsWith('data-test-')) {
+            return null;
+          }
+        },
       });
 
       return root;

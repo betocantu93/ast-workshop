@@ -3,11 +3,11 @@
     {{svg-jar "copy" alt="Copy Cargo.toml snippet to clipboard"}}
     <div class="copy-notification {{if this.showSuccess "copy-success" "copy-failure"}}">
       {{#if this.showNotification}}
-        {{#unless this.showSuccess}}
-          An error occured. Please use CTRL+C.
-        {{else}}
+        {{#if this.showSuccess}}
           Copied!
-        {{/unless}}
+        {{else}}
+          An error occured. Please use CTRL+C.
+        {{/if}}
       {{/if}}
     </div>
   </CopyButton>

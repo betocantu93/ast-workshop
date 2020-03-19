@@ -57,11 +57,11 @@
         </LinkTo>
       </div>
       <div class='stats'>
-        {{#unless user.email}}
-          &nbsp;
-        {{else}}
+        {{#if user.email}}
           {{user.email}}
-        {{/unless}}
+        {{else}}
+          &nbsp;
+        {{/if}}
       </div>
       <div class='stats downloads'>
         <button type="button" class='remove-owner small yellow-button' {{action 'removeOwner' user}}>Remove</button>
